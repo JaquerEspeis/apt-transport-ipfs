@@ -124,6 +124,9 @@ class IPFS_method():
         os.chdir(os.path.dirname(filename))
         try:
             ipfs.get(ipfs_file_path)
+            os.rename(
+                os.path.basename(ipfs_file_path),
+                filename)
         finally:
             os.chdir(cwd)
 
