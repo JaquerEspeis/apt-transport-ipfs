@@ -19,3 +19,61 @@
 # IPFS transport for apt.
 # This is based on apt-transport-s3:
 # https://github.com/BashtonLtd/apt-transport-s3
+
+import sys
+
+
+class IPFS_method():
+
+    __eof = False
+
+    def __init__(self):
+        self.send_capabilities()
+
+    def send_capabilities(self):
+        self._send(100, {
+            'Version': '1.1',
+            'Single-Instance': 'true',
+            'Send-Config': 'true'})
+
+    def _send(self, code, headers):
+        message = APTMessage(code, headers)
+        sys.stdout.write(message.encode())
+
+    def run(self):
+        pass
+
+
+class APTMessage():
+
+    _MESSAGE_CODES = {
+        100: 'Capabilities',
+        102: 'Status',
+        200: 'URI Start',
+        201: 'URI Done',
+        400: 'URI Failure',
+        600: 'URI Acquire',
+        601: 'Configuration'
+    }
+
+    def __init__(self, code, headers):
+        self._code = code
+        self._headers = headers
+
+    def encode(self):
+        result = '{0} {1}\n'.format(
+            self._code, self._MESSAGE_CODES[self._code])
+        for header_key in self._headers:
+            if self._headers[header_key] is not None:
+                result += '{0}: {1}\n'.format(
+                    header_key, self._headers[header_key])
+        return result + '\n'
+
+
+if __name__ == '__main__':
+    try:
+        method = IPFS_method()
+        exitcode = method.run()
+        sys.exit(exitcode)
+    except KeyboardInterrupt:
+        pass
