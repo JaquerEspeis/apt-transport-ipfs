@@ -12,7 +12,7 @@ IPFS transport for apt
 
 Copy the ipfs file from this repo to the directory for apt transport methods:
 
-    sudo wget --output-file /usr/lib/apt/methods/ipfs https://raw.githubusercontent.com/JaquerEspeis/apt-transport-ipfs/master/ipfs
+    sudo wget --output-document /usr/lib/apt/methods/ipfs https://raw.githubusercontent.com/JaquerEspeis/apt-transport-ipfs/master/ipfs
     sudo chmod +x /usr/lib/apt/methods/ipfs
 
 # Configure
