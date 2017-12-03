@@ -2,7 +2,7 @@ IPFS transport for apt
 
 # Requirements
 
-    sudo apt install python3 pip
+    sudo apt install python3-pip git
     sudo pip3 install ipfsapi
     sudo snap install ipfs
     ipfs init
@@ -12,29 +12,27 @@ IPFS transport for apt
 
 Copy the ipfs file from this repo to the directory for apt transport methods:
 
-    sudo wget --output-document /usr/lib/apt/methods/ipfs https://raw.githubusercontent.com/JaquerEspeis/apt-transport-ipfs/master/ipfs
-    sudo chmod +x /usr/lib/apt/methods/ipfs
+    git clone https://github.com/JaquerEspeis/apt-transport-ipfs
+    sudo mv ipfs /usr/lib/apt/methods/ipfs
 
 # Configure
 
 Add an IPFS mirror to your apt sources.list file. TODO set up a mirror.
 
-# Hacky local test
+# Hacky test
 
-While we set up a proper IPFS mirror, this can be tested by adding a bunch
-of files:
+While we set up a proper IPFS mirror, this can be tested by using a hardcoded
+IPFS hash that was manually set up to serve the hello deb.
 
-    cd ~
-    mkdir --parents test-archive/dists/xenial/
-    cd test-archive/dists/xenial
-    wget http://archive.ubuntu.com/ubuntu/dists/xenial/InRelease
-    wget http://archive.ubuntu.com/ubuntu/dists/xenial/Release
-    ipfs add --recursive ~/test-archive
+Backup your /etc/apt/sources.list, remove all the lines that it has and leave it
+just with:
 
-The last line that this command returns will be something like:
+    deb ipfs://QmTNL3t9h23ZUUSsRj1h4CaZ6SLQF6xFoLcve2gAMcLdWA xenial main
 
-    added {hash} test-archive
+To test it, run:
 
-Now, add that hash to /etc/apt/source.list with the following form:
+    sudo apt update
+    sudo apt install hello
 
-    deb ipfs://{hash} xenial main
+This IPFS node is not permanent and will disappear. To set it up again, use the
+script in `scripts/add_test_mirror.sh`.
