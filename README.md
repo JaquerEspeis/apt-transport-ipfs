@@ -18,3 +18,23 @@ Copy the ipfs file from this repo to the directory for apt transport methods:
 # Configure
 
 Add an IPFS mirror to your apt sources.list file. TODO set up a mirror.
+
+# Hacky local test
+
+While we set up a proper IPFS mirror, this can be tested by adding a bunch
+of files:
+
+    cd ~
+    mkdir --parents test-archive/dists/xenial/
+    cd test-archive/dists/xenial
+    wget http://archive.ubuntu.com/ubuntu/dists/xenial/InRelease
+    wget http://archive.ubuntu.com/ubuntu/dists/xenial/Release
+    ipfs add --recursive ~/test-archive
+
+The last line that this command returns will be something like:
+
+    added {hash} test-archive
+
+Now, add that hash to /etc/apt/source.list with the following form:
+
+    deb ipfs://{hash} xenial main
