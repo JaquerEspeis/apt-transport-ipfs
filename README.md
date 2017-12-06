@@ -28,7 +28,7 @@ IPFS hash that was manually set up to serve the hello deb.
 Backup your /etc/apt/sources.list, remove all the lines that it has and leave it
 just with:
 
-    deb ipfs:///ipns/QmdyaTjqXayZVQULcEyHQFx6n76TrMBc5aEDCgvp5cUTEi xenial main
+    deb ipfs:/ipns/QmdyaTjqXayZVQULcEyHQFx6n76TrMBc5aEDCgvp5cUTEi xenial main
 
 To test it, run:
 

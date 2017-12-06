@@ -106,7 +106,7 @@ class IPFS_method():
         return result
 
     def fetch(self, uri, filename):
-        ipfs_file_path = uri.replace('ipfs://', '', 1)
+        ipfs_file_path = uri.replace('ipfs:', '', 1)
 
         self.send_status({'URI': uri, 'Message': 'Waiting for stats'})
         ipfs = ipfsapi.connect('127.0.0.1', 5001)
