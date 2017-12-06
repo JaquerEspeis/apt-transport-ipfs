@@ -11,4 +11,5 @@ wget --directory-prefix=test-archive/dists/xenial/main/binary-amd64/ http://arch
 wget --directory-prefix=test-archive/dists/xenial/main/i18n/ http://archive.ubuntu.com/ubuntu/dists/xenial/main/i18n/Translation-en.xz
 wget --directory-prefix=test-archive/pool/main/h/hello/ http://archive.ubuntu.com/ubuntu/pool/main/h/hello/hello_2.10-1_amd64.deb
 
-ipfs add --recursive ~/test-archive
+hash="$(ipfs add --quiet --recursive test-archive | tail -n1)"
+ipfs name publish "$hash"
