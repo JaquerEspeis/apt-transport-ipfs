@@ -37,3 +37,5 @@ To test it, run:
 
 This IPFS node is not permanent and will disappear. To set it up again, use the
 script in `scripts/add_test_mirror.sh`.
+
+Made with :rainbow: by JáquerEspeis.
