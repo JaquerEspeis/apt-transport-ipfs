@@ -14,7 +14,7 @@ Copy the ipfs file from this repo to the directory for apt transport methods:
 
     git clone https://github.com/JaquerEspeis/apt-transport-ipfs
     cd apt-transport-ipfs
-    sudo mv ipfs /usr/lib/apt/methods/ipfs
+    sudo cp ipfs /usr/lib/apt/methods/ipfs
 
 # Configure
 
