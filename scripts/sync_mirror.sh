@@ -22,9 +22,13 @@
 set -e
 
 if [ "$#" -ne 1 ]; then
-    echo "Usage: "$0" <storage-dir>"
-    exit 1
+	echo "Usage: "$0" <storage-dir>"
+	exit 1
 fi
+
+IPFS="/usr/local/bin/ipfs"
+export IPFS_PATH="/data/ipfsrepo"
+export IPFS_FD_MAX="4096"
 
 dir="$1"
 
@@ -38,12 +42,12 @@ rsync --recursive --times --links --safe-links --hard-links   --stats --delete -
 # Publish the files on IPFS.
 # This uses the experimental filestore:
 # https://github.com/ipfs/go-ipfs/issues/3397#issuecomment-284337564
-ipfs config --json Experimental.FilestoreEnabled true
+$IPFS config --json Experimental.FilestoreEnabled true
 echo "Adding the mirror files to IPFS."
-hash="$(ipfs add --quiet --recursive --nocopy "${dir}" | tail -n1)"
+hash="$($IPFS add --progress --local --nocopy --fscache --quieter --recursive "${dir}" | tail -n1)"
 echo "Published IPFS hash ${hash}."
 echo "Updating IPNS."
-ipns="$(ipfs name publish "${hash}" | cut -d ' ' -f 3 | tr -d ':')"
+ipns="$($IPFS name publish "${hash}" | cut -d ' ' -f 3 | tr -d ':')"
 echo "IPFS Mirror synchronized."
 echo "Add the address 'ipfs:/ipns/${ipns}' to your '/etc/apt/sources.list'."
 echo "For example, add 'deb ipfs:/ipns/${ipns} xenial main' if you are in Ubuntu 16.04, and you want to use IPFS to get updates from the main archive."
