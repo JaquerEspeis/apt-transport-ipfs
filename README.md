@@ -3,7 +3,7 @@ IPFS transport for apt
 # Requirements
 
     sudo apt install python3-pip git
-    sudo pip3 install ipfsapi
+    sudo pip3 install ipfshttpclient
     sudo snap install ipfs
     ipfs init
     ipfs daemon &
