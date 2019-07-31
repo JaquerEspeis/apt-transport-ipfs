@@ -51,7 +51,7 @@ $IPFS config Reprovider.Interval "0"
 $IPFS config --json Experimental.ShardingEnabled true
 
 echo "Adding the mirror files to IPFS."
-hash="$($IPFS add --progress --local --nocopy --fscache --quieter --recursive "${dir}" | tail -n1)"
+hash="$($IPFS add --progress --offline --nocopy --fscache --quieter --recursive "${dir}" | tail -n1)"
 echo "Published IPFS hash ${hash}."
 echo "Updating IPNS."
 ipns="$($IPFS name publish "${hash}" | cut -d ' ' -f 3 | tr -d ':')"
