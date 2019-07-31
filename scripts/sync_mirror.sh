@@ -27,7 +27,7 @@ if [ "$#" -ne 1 ]; then
 fi
 
 IPFS="/snap/bin/ipfs"
-export IPFS_PATH="/media/data/ipfsrepo/.ipfs"
+export IPFS_PATH="/media/data/.ipfs"
 export IPFS_FD_MAX="4096"
 
 dir="$1"
