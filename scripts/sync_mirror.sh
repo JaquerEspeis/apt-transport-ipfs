@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright (C) 2018 JaquerEspeis
+# Copyright (C) 2018, 2019 JaquerEspeis
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 3 as
@@ -26,8 +26,8 @@ if [ "$#" -ne 1 ]; then
 	exit 1
 fi
 
-IPFS="/usr/local/bin/ipfs"
-export IPFS_PATH="/data/ipfsrepo"
+IPFS="/snap/bin/ipfs"
+export IPFS_PATH="/media/data/ipfsrepo/.ipfs"
 export IPFS_FD_MAX="4096"
 
 dir="$1"
@@ -43,6 +43,13 @@ rsync --recursive --times --links --safe-links --hard-links   --stats --delete -
 # This uses the experimental filestore:
 # https://github.com/ipfs/go-ipfs/issues/3397#issuecomment-284337564
 $IPFS config --json Experimental.FilestoreEnabled true
+
+# Tips for adding large datasets from:
+# https://github.com/ipfs/notes/issues/212
+$IPFS config --json Datastore.NoSync true
+$IPFS config Reprovider.Interval "0"
+$IPFS config --json Experimental.ShardingEnabled true
+
 echo "Adding the mirror files to IPFS."
 hash="$($IPFS add --progress --local --nocopy --fscache --quieter --recursive "${dir}" | tail -n1)"
 echo "Published IPFS hash ${hash}."
