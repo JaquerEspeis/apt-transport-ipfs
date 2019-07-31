@@ -1,5 +1,9 @@
 IPFS transport for apt
 
+# Acknowledgements
+
+This transport started as a hack of the [apt-transport-s3](https://github.com/MayaraCloud/apt-transport-s3).
+
 # Requirements
 
     sudo apt install python3-pip git
