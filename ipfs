@@ -110,7 +110,7 @@ class IPFS_method():
 
         self.send_status({'URI': uri, 'Message': 'Waiting for stats'})
         ipfs = ipfshttpclient.connect('/ip4/127.0.0.1/tcp/5001/http')
-        stat = ipfs.object_stat(ipfs_file_path)
+        stat = ipfs.object.stat(ipfs_file_path)
         self.send_uri_start({
             'URI': uri,
             # FIXME We can't get the real size without downloading the file.
